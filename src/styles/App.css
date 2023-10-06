@@ -1,0 +1,175 @@
+/* Reset */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* Colors */
+:root {
+    --primary-color: #a22de5;
+    --dark-color: #1e1e1e;
+    --background-color: #fbf2fe;
+}
+
+
+/* Base */
+#root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    min-height: 100vh;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+
+/* Short classes */
+.flex {
+    display: flex;
+}
+
+.sb {
+    justify-content: space-between;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.g-20 {
+    gap: 20px;
+}
+
+.w-max {
+    width: 100%;
+}
+
+/* Card */
+.card {
+    padding: 24px;
+    border-radius: 24px;
+    background-color: white;
+}
+
+/* List */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list__title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.list__item {
+    background-color: #eeeeee;
+    border-left: 3px solid var(--primary-color);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Form */
+.form {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form > h3 {
+    color: var(--dark-color);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--dark-color);
+}
+
+.input-group > label {
+    font-weight: 500;
+}
+
+.input {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    outline: 2px solid var(--dark-color);
+}
+
+.input:focus {
+    outline-color: var(--primary-color);
+}
+
+.input.red:focus {
+    outline-color: red;
+}
+
+.input.green:focus {
+    outline-color: green;
+}
+
+.input.blue:focus {
+    outline-color: blue;
+}
+
+.button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 15px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    outline: none;
+    transition: .4s;
+    font-weight: 500;
+    line-height: 110%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button:hover {
+    opacity: .9;
+}
+
+.outline-button {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.outline-button:hover {
+    opacity: 1;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+}
