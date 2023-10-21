@@ -1,16 +1,16 @@
-import classnames from 'classnames';
-import Parser from 'html-react-parser';
-import {FC, useState} from 'react';
+import classnames from "classnames";
+import Parser from "html-react-parser";
+import {ChangeEvent, FC, useState} from "react";
 
 enum Colors {
-    red = 'red',
-    green = 'green',
-    blue = 'blue',
+    red = "red",
+    green = "green",
+    blue = "blue",
 }
 
 enum Types {
-    string = 'text',
-    numeric = 'number',
+    string = "text",
+    numeric = "number",
 }
 
 interface ParamColor {
@@ -34,47 +34,49 @@ interface Param {
     type: string;
 }
 
+/**
+ * ParamEditor is a component for Viewing and Updating Model
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ParamEditor: FC = () => {
-    const getPrettyJson = (json) => {
+    /**
+     * Method for pretty json displaying
+     * @param {Object} json
+     * @returns {ReturnType<typeof object>}
+     */
+    const getPrettyJson = (json: object) => {
         return Parser(
             JSON.stringify(json, null, 4)
-                .replace(/\n/g, '<br/>')
-                .replace(/ /g, '&nbsp;'),
+                .replace(/\n/g, "<br/>")
+                .replace(/ /g, "&nbsp;"),
         );
     };
 
     const params: Param[] = [
         {
             id: 1,
-            name: 'Назначение',
+            name: "Назначение",
             type: Types.string,
         },
         {
             id: 2,
-            name: 'Длина',
+            name: "Длина",
             type: Types.string,
         },
-        // {
-        //     id: 3,
-        //     name: 'Количество',
-        //     type: Types.numeric,
-        // },
     ];
 
-    const [paramValues, setParamValues] = useState([
+    const [paramValues, setParamValues] = useState<ParamValue[]>([
         {
             paramId: 1,
-            value: 'повседневное',
+            value: "повседневное",
         },
         {
             paramId: 2,
-            value: 'макси',
+            value: "макси",
         },
-        // {
-        //     paramId: 3,
-        //     value: '10',
-        // },
     ]);
+
     const paramColors = [
         {
             paramId: 1,
@@ -84,42 +86,60 @@ const ParamEditor: FC = () => {
             paramId: 2,
             color: Colors.red,
         },
-        // {
-        //     paramId: 3,
-        //     color: Colors.green,
-        // },
     ];
-
 
     const model: Model = {
         paramValues,
         paramColors,
     };
 
+    /**
+     * Get model method
+     * @returns {Model}
+     */
     const getModel = (): Model => {
         return model;
     };
 
+    /**
+     * Get param method
+     * @returns {Param[]}
+     */
     const getParams = (): Param[] => {
         return params;
     };
 
-    const getParamValue = (param) => {
-        return (paramValues.find((paramValue) => {
+    /**
+     * Method to find ParamValue from Param
+     * @param {Param} param
+     * @returns {string}
+     */
+    const getParamValue = (param: Param): string | undefined => {
+        return (paramValues?.find((paramValue: ParamValue): boolean => {
             return paramValue.paramId === param.id;
-        })).value;
+        }))?.value;
     };
 
-    const getParamColor = (param) => {
-        return (paramColors.find((paramColor) => {
-            return paramColor.paramId === param.id;
-        })).color;
+    /**
+     * Method to find ParamColor from Param
+     * @param {Param} param
+     * @returns {Colors}
+     */
+    const getParamColor = (param: Param) => {
+        return (paramColors?.find((paramColor: ParamColor): boolean => {
+            return paramColor.paramId === param?.id;
+        }))?.color;
     };
 
-    const updateParamValue = (event, param) => {
-        paramValues.find((paramValue) => {
+    /**
+     * Method for ParamValue updating
+     * @param event
+     * @param {Param} param
+     */
+    const updateParamValue = (event: ChangeEvent<HTMLInputElement>, param: Param): void => {
+        paramValues!.find((paramValue: ParamValue): boolean => {
             return paramValue.paramId === param.id;
-        }).value = event.target.value;
+        })!.value = event.target.value;
 
         setParamValues([...paramValues]);
     };
@@ -138,7 +158,7 @@ const ParamEditor: FC = () => {
                         <input
                             value={getParamValue(param)}
                             onChange={(event) => updateParamValue(event, param)}
-                            className={classnames('input', getParamColor(param))}
+                            className={classnames("input", getParamColor(param))}
                             type={param.type}
                         />
                     </div>,
@@ -162,6 +182,5 @@ const ParamEditor: FC = () => {
         </div>
     );
 };
-
 
 export default ParamEditor;
